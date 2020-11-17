@@ -1,0 +1,2 @@
+# Meyer Briggs Personality List
+

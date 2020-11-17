@@ -1,0 +1,118 @@
+setup: false
+language: en
+welcome: false
+title: 'MBTI Wiki'
+author: 'Ashwin Balaji'
+copyright: ©
+year: '2020'
+langattr: en
+editor: visual
+access: ''
+formats:
+    - markdown
+    - headline
+    - ulist
+    - olist
+    - table
+    - quote
+    - notice
+    - image
+    - video
+    - file
+    - toc
+    - hr
+    - definition
+    - code
+headlineanchors: null
+displayErrorDetails: null
+twigcache: null
+proxy: null
+trustedproxies: ''
+images:
+    live:
+        width: '820'
+logo: logo.png
+favicon: favicon
+startpage: true
+theme: typemill
+themes:
+    cyanine:
+        layoutsize: standard
+        landingpage: 'on'
+        landingpageIntro: '1'
+        introTitle: ''
+        introMarkdown: ''
+        introButtonLink: ''
+        introButtonLabel: ''
+        landingpageInfo: ''
+        infoMarkdown: ''
+        landingpageTeaser: ''
+        teaser1title: ''
+        teaser1text: ''
+        teaser1link: ''
+        teaser1label: ''
+        teaser2title: ''
+        teaser2text: ''
+        teaser2link: ''
+        teaser2label: ''
+        landingpageContrast: ''
+        contrastTitle: ''
+        contrastText: ''
+        contrastLink: ''
+        contrastLabel: ''
+        landingpageNavi: '2'
+        naviTitle: 'Get Started'
+        naviDepth: ''
+        landingpageNews: ''
+        newsHeadline: ''
+        newsFolder: ''
+        newsLabel: ''
+        authorIntro: ''
+        dateIntro: ''
+        dateFormat: m/d/Y
+        gitLink: ''
+        editText: ''
+        footer1: ''
+        footer2: ''
+        footer3: ''
+        font: 'BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif'
+        fontheadline: 'BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif'
+        fontnavi: 'BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif'
+        brandcolorprimary: ''
+        fontcolorprimary: ''
+        newsbackground: ''
+        newscolor: ''
+        brandcolortertiary: ''
+        fontcolortertiary: ''
+        bordercolortertiary: ''
+        fontcolorlink: ''
+        brandcolorsecondary: ''
+        fontcolorsecondary: ''
+        codebackground: ''
+        codecolor: ''
+        contentnavihoverbackground: ''
+        contentnavihovercolor: ''
+        thinbordercolor: ''
+    typemill:
+        start: Start
+        chapter: Chapter
+        authorPosition:
+            top: 'on'
+        authorIntro: Author
+        modifiedText: 'Last updated'
+        modifiedFormat: m/d/Y
+        socialPosition:
+            top: 'on'
+            bottom: 'on'
+        socialButtons:
+            facebook: 'on'
+            linkedin: 'on'
+            whatsapp: 'on'
+            mail: 'on'
+        gitlink: ''
+plugins:
+    math:
+        active: 'on'
+        tool: katex
+    search:
+        active: 'on'

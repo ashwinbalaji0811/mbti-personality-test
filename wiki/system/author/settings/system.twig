@@ -1,0 +1,213 @@
+{% extends 'layouts/layout.twig' %}
+{% block title %}{{ __('Setup') }}{% endblock %}
+{% set startpage = old.settings.startpage ? old.settings.startpage : settings.startpage %}
+{% set linebreaks = old.settings.linebreaks ? old.settings.linebreaks : settings.linebreaks %}
+{% set year = settings.year ? settings.year : "now"|date("Y") %}
+{% set mylang = settings.language ? settings.language : locale %}
+{% set mycopy = settings.copyright ? settings.copyright : "@" %}
+
+{% block content %}
+	
+	<div class="formWrapper">
+
+		<form method="POST" action="{{ path_for('settings.save') }}" enctype="multipart/form-data">
+		
+			<section id="system" class="settings">
+
+				<header class="headline">
+					<h1>{{ __('System') }} <span class="version-number">v. {{settings.version}}</span></h1>
+				</header>
+				
+				<div id="typemill" class="fc-system-version update-banner">{{ settings.version ? settings.version : 'Unknown' }}</div>
+				
+				<fieldset>
+				
+					<div class="medium{{ errors.settings.title ? ' error' : '' }}">
+						<label for="settings[title]">{{ __('Website Title') }} *</label>
+						<input type="text" name="settings[title]" id="title" pattern=".{2,20}" required title="{{ __('Use 2 to 20 characters') }}" value="{{ old.settings.title ? old.settings.title : settings.title }}" />
+						{% if errors.settings.title %}
+							<span class="error">{{ errors.settings.title | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.author ? ' error' : '' }}">
+						<label for="settings[author]">{{ __('Author') }}</label>
+						<input type="text" name="settings[author]" id="author" pattern="[^()/><\]\{\}\?\$@#!*%§=[\\\x22;:|]{2,40}" value="{{ old.settings.author ? old.settings.author : __(settings.author) }}" title="{{ __('Use 2 to 40 characters') }} {{ __('Only the following special characters are allowed') }} a,b a.b a-b a_b a&b a+b" />
+						{% if errors.settings.author %}
+							<span class="error">{{ errors.settings.author | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.copyright ? ' error' : '' }}">
+						<label for="settings[copyright]">{{ __('Copyright') }}/{{ __('Licence') }}</label>
+						<select name="settings[copyright]" id="copyright">
+							{% for copy in copyright %}
+								<option value="{{ copy }}"{% if copy == old.settings.copyright or copy == mycopy %} selected{% endif %}>{{ __(copy) }}</option>
+							{% endfor %}
+						</select>
+						{% if errors.settings.copyright %}
+							<span class="error">{{ errors.settings.copyright | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.year ? ' error' : '' }}">
+						<label for="settings[year]">{{ __('Year') }} *</label>
+						<input type="text" name="settings[year]" id="year" value="{{ old.settings.year ? old.settings.year : year }}" pattern="[0-9]{4}" required title="{{ __('Use a valid year') }}, {{ __('e.g.') }} 2017" />
+						{% if errors.settings.year %}
+							<span class="error">{{ errors.settings.year | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.language ? ' error' : '' }}">
+						<label for="settings[language]">{{ __('Language_admin') }}</label>
+						<select name="settings[language]" id="language">
+							{% for key,lang in languages %}
+								<option value="{{ key }}"{% if (key == old.settings.language or key == mylang) %} selected{% endif %}>{{ __(lang) }}</option>
+							{% endfor %}
+						</select>
+						{% if errors.settings.language %}
+							<span class="error">{{ errors.settings.language | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.langattr ? ' error' : '' }}">
+						<label for="langattr">{{ __('Language_attr') }}</label>
+						<input type="text" name="settings[langattr]" id="langattr" value="{{ old.settings.langattr ? old.settings.langattr : settings.langattr }}" pattern="[a-z]{2}" title="{{ __('Use a valid language attribute') }}, {{ __('e.g.') }} en" />
+						{% if errors.settings.langattr %}
+							<span class="error">{{ errors.settings.langattr | first }}</span>
+						{% endif %}
+					</div><div class="medium">
+						<label for="settings[sitemap]">{{ __('Google Sitemap') }} <small>({{ __('Readonly') }})</small></label>
+						<input type="text" name="settings[sitemap]" id="sitemap" readonly value="{{ base_url }}/cache/sitemap.xml" />
+					</div><div class="medium{{ errors.settings.access ? ' error' : '' }}">
+						<label for="settings[access]">{{ __('Website visible for') }}</label>
+						<select name="settings[access]" id="access">
+							{% for key,option in access %}
+								<option value="{{ key }}"{% if (key == old.settings.access or key == settings.access) %} selected{% endif %}>{{ __(option) }}</option>
+							{% endfor %}
+						</select>
+						{% if errors.settings.access %}
+							<span class="error">{{ errors.settings.access | first }}</span>
+						{% endif %}
+					</div>
+					<hr>
+					<header class="headline">
+						<h2>{{ __('General Presentation') }}</h2>
+					</header>
+					<div class="medium{{ errors.settings.logo ? ' error' : '' }}">
+						<label for="settings[logo]">{{ __('Logo') }} <small>(jpg,jpeg,png,svg)</small></label>
+						<div class="flex fileinput">
+							<button class="deletefilebutton w-10 bg-tm-gray bn hover-bg-tm-red hover-white">x</button>
+							<input class="deletefileinput" name="settings[deletelogo]" type="hidden" value="NULL" />
+							<input class="visiblefilename w-60" type="text" disabled="disabled" value="{{ old.settings.logo ? old.settings.logo : settings.logo }}" placeholder="{{ __('CHOOSE_FILE') }}" />
+							<div class="relative w-30 pv3 tc bg-tm-green white dim pointer">
+	    						<span class="f7">{{ __('BROWSE') }}</span>
+								<input class="upload hiddenfile" type="file" name="settings[logo]" value="{{ old.settings.logo ? old.settings.logo : settings.logo }}" />
+							</div>
+						</div>
+						{% if errors.settings.logo %}
+							<span class="error">{{ errors.settings.logo | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.favicon ? ' error' : '' }}">
+						<label for="settings[favicon]">{{ __('Favicon') }} <small>(png)</small></label>
+						<div class="flex fileinput">
+							<button class="deletefilebutton w-10 bg-tm-gray bn hover-bg-tm-red hover-white">x</button>
+							<input class="deletefileinput" name="settings[deletefav]" type="hidden" value="NULL" />
+							<input class="visiblefilename w-60" type="text" disabled="disabled" value="{{ old.settings.favicon ? old.settings.favicon : settings.favicon }}" placeholder="{{ __('CHOOSE_FILE') }}" />
+							<div class="relative w-30 pv3 tc bg-tm-green white dim pointer">
+	    						<span class="f7">{{ __('BROWSE') }}</span>
+								<input class="upload hiddenfile" type="file" name="settings[favicon]" value="{{ old.settings.favicon ? old.settings.favicon : settings.favicon }}" />
+							</div>
+						</div>
+						{% if errors.settings.favicon %}
+							<span class="error">{{ errors.settings.favicon | first }}</span>
+						{% endif %}
+					</div><div class="medium{{ errors.settings.headlineanchors ? ' error' : '' }}">
+						<label for="settings[headlineanchors]">{{ __('Headline Anchors') }} *</label>
+						<label class="control-group">{{ __('Show anchors next to headlines') }}
+							<input name="settings[headlineanchors]" type="checkbox" {% if (settings.headlineanchors or old.settings.headlineanchors) %} checked {% endif %}>
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<hr>
+					<header class="headline">
+						<h2>{{ __('Writing') }}</h2>
+					</header>
+					<div class="medium{{ errors.settings.editor ? ' error' : '' }}">
+						<label for="settings[editor]">{{ __('Standard Editor Mode') }} *</label>
+						<label class="control-group">{{ __('Visual Markdown Editor') }}
+							<input name="settings[editor]" value="visual" type="radio" {% if (old.settings.editor == "visual") or (settings.editor == "visual") %} checked {% endif %}>
+							<span class="radiomark"></span>
+						</label>
+						<label class="control-group">{{ __('Raw Markdown Editor') }}
+							<input name="settings[editor]" value="raw" type="radio" {% if (old.settings.editor == "raw") or (settings.editor == "raw") %} checked {% endif %}>
+							<span class="radiomark"></span>
+						</label>
+						{% if errors.settings.editor %}
+							<span class="error">{{ errors.settings.editor | first }}</span>
+						{% endif %}
+					</div>
+					<div class="medium{{ errors.settings.editor ? ' error' : '' }}">
+						<label>{{ __('Visual Editor') }}: {{ __('The Format Buttons') }}</label>
+						{% for format in formats %}
+
+							<label class="control-group">{{ __(format) }}
+								<input name="settings[formats][]" value="{{ format }}" type="checkbox" {% if format in settings.formats %} checked {% endif %}>
+								<span class="checkmark"></span>
+							</label>
+
+						{% endfor %}
+					</div>
+					<hr>
+					<header class="headline">
+						<h2>{{ __('Developer') }}</h2>
+						<p>{{ __('The following options are only for developers') }}</p>
+					</header>
+					<div class="large{{ errors.settings.displayErrorDetails ? ' error' : '' }}">
+						<label for="settings[displayErrorDetails]">{{ __('Error Reporting') }}</label>
+						<label class="control-group">{{ __('Display Application Errors') }}
+							<input name="settings[displayErrorDetails]" type="checkbox" {% if (settings.displayErrorDetails or old.settings.displayErrorDetails) %} checked {% endif %}>
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="medium{{ errors.settings.twigcache ? ' error' : '' }}">
+						<label for="settings[twigcache]">{{ __('Twig Cache') }}</label>
+						<label class="control-group">{{ __('Activate Cache for Twig Templates') }}
+							<input name="settings[twigcache]" type="checkbox" {% if (settings.twigcache or old.settings.twigcache) %} checked {% endif %}>
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="medium">
+						<div class="label">{{ __('Delete all cache files') }}</div>
+						<button id="clearcache" class="link bg-tm-green white dim bn br1 ph3 pv2 f6">{{ __('Clear Cache') }}</button><div id="cacheresult" class="dib ph3 pv2"></div>
+					</div>
+					<div class="medium{{ errors.settings.images.live.width ? ' error' : '' }}">
+						<label for="imagewidth">{{ __('Standard width for images') }}</label>
+						<input type="text" name="settings[images][live][width]" id="imagewidth" value="{{ old.settings.images.live.width ? old.settings.images.live.width : settings.images.live.width }}" title="{{ __('Use a valid number') }}" />
+						<div class="description">{{ __('This applies only for future images in the content area.') }}</div>
+						{% if errors.settings.images.live.width %}
+							<span class="error">{{ errors.settings.images.live.width | first }}</span>
+						{% endif %}
+					</div>
+					<div class="medium{{ errors.settings.images.live.height ? ' error' : '' }}">
+						<label for="imageheight">{{ __('Standard height for images') }}</label>
+						<input type="text" name="settings[images][live][height]" id="imageheight" value="{{ old.settings.images.live.height ? old.settings.images.live.height : settings.images.live.height }}" title="{{ __('Use a valid number') }}" />
+						<div class="description">{{ __('If you add a value for the height, then the image will be cropped.') }}</div>
+						{% if errors.settings.images.live.height %}
+							<span class="error">{{ errors.settings.images.live.height | first }}</span>
+						{% endif %}
+					</div>
+					<div class="medium{{ errors.settings.proxy ? ' error' : '' }}">
+						<label for="settings[proxy]">{{ __('Proxy') }}</label>
+						<label class="control-group">{{ __('Use X-Forwarded Headers') }}
+							<input name="settings[proxy]" type="checkbox" {% if (settings.proxy or old.settings.proxy) %} checked {% endif %}>
+							<span class="checkmark"></span>
+						</label>
+					</div>
+					<div class="medium{{ errors.settings.trustedproxies ? ' error' : '' }}">
+						<label for="trustedproxies">{{ __('Trusted IPs for proxy (comma separated)') }}</label>
+						<input type="text" name="settings[trustedproxies]" id="trustedproxies" value="{{ old.settings.trustedproxies ? old.settings.trustedproxies : settings.trustedproxies }}" title="{{ __('Comma separated list of IPs') }}" />
+						{% if errors.settings.trustedproxies %}
+							<span class="error">{{ errors.settings.trustedproxies | first }}</span>
+						{% endif %}
+					</div>
+				</fieldset>
+			</section>
+			<input type="submit" value="{{ __('Save All Settings') }}" />
+
+			{{ csrf_field() | raw }}
+			
+		</form>
+	
+	</div>
+{% endblock %}

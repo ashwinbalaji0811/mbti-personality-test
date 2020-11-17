@@ -1,0 +1,24 @@
+/personality-list:
+    hide: false
+    navtitle: 'Personality List'
+/personality-list/enfj:
+    hide: false
+    navtitle: ENFJ
+/personality-list/enfp:
+    hide: false
+    navtitle: ENFP
+/personality-list/entj:
+    hide: false
+    navtitle: ENTJ
+/personality-list/entp:
+    hide: false
+    navtitle: ENTP
+/personality-list/esfj:
+    hide: false
+    navtitle: ESFJ
+/personality-list/esfp:
+    hide: false
+    navtitle: ESFP
+/:
+    hide: false
+    navtitle: home

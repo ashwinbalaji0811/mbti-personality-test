@@ -68,10 +68,17 @@
             <!-- Here I've inserted Score Result from JavaScript -->
         </div>
         <div class="buttons">
+            <button class="report" onclick="LoadReportPHP()">Report</button>
             <button class="restart">Retake</button>
             <button class="quit">Quit</button>
         </div>
     </div>
+
+    <script>
+        function LoadReportPHP(){
+            window.open(urlResult, '_blank');
+        }
+    </script>
 
     <!-- Inside this JavaScript file I've inserted Questions and Options only -->
     <script src="js/questions.js"></script>

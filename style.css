@@ -363,6 +363,16 @@ footer button.show{
     transition: all 0.3s ease;
 }
 
+.buttons button.report{
+    color: #007bff;
+    background: #fff;
+}
+
+.buttons button.report:hover{
+    color: #fff;
+    background: #007bff;
+}
+
 .buttons button.restart{
     color: #fff;
     background: #007bff;

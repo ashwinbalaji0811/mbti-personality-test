@@ -10,6 +10,8 @@ const time_line = document.querySelector("header .time_line");
 const timeText = document.querySelector(".timer .time_left_txt");
 const timeCount = document.querySelector(".timer .timer_sec");
 
+var urlResult = '';
+
 // if startQuiz button clicked
 start_btn.onclick = ()=>{
     info_box.classList.add("activeInfo"); //show info box
@@ -181,6 +183,8 @@ function showResult(){
     } */
     let scoreTag = `<center><p>and awesome! 🎉, You got <strong>${ personalityResult }</strong> as your personality.</p></center>`;
         scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
+    urlResult = 'result.php?pers='  + personalityResult + '&e=' + userScoreA + '&s=' + userScoreB + '&t=' + userScoreC + '&j=' + userScoreD;
+
 }
 
 function startTimer(time){
